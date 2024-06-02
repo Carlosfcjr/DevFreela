@@ -3,6 +3,8 @@ using DevFreela.Core.Repositories;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -19,6 +21,11 @@ namespace DevFreela.Infrastructure.Persistence.Repositories
         public async Task<User> GetByIdAsync(int id)
         {
             return await _dbContext.Users.SingleOrDefaultAsync(u => u.Id == id);
+        }
+
+        public async Task<User> GetUserByEmailAndPasswordAsync(string email, string password)
+        {
+            return await _dbContext.Users.SingleOrDefaultAsync(x=>x.Email ==email && x.Password ==password);
         }
     }
 }
